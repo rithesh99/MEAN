@@ -2,6 +2,7 @@ const express = require('express')
 const app = express();
 const { connect } = require('./config/db')
 const postRoutes = require('./routes/post')
+const path = require("path");
 
 connect();
 
@@ -20,6 +21,7 @@ const posts = [
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use("/images", express.static(path.join("images")));
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', "*");

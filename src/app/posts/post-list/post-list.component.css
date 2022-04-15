@@ -12,3 +12,12 @@
 .post-list {
   margin: 20px;
 }
+
+.post-image {
+  text-align: center;
+}
+
+.post-image img {
+  width: auto;
+  height: 250px;
+}
