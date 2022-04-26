@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
 
@@ -9,8 +10,21 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent {
   isLoading = false;
+  private authStatusSub: Subscription;
 
   constructor(public authService: AuthService) {}
+
+  ngOnInit() {
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe((authStatus) => {
+        this.isLoading = false;
+      });
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
 
   onSignup(form: NgForm) {
     if (form.invalid) {

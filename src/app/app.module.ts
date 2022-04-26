@@ -20,6 +20,10 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { CookieService } from 'ngx-cookie-service';
+import { ErrorInterceptor } from './error-interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,7 @@ import { CookieService } from 'ngx-cookie-service';
     PostListComponent,
     LoginComponent,
     SignupComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,13 +47,18 @@ import { CookieService } from 'ngx-cookie-service';
     MatExpansionModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
     HttpClientModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     CookieService,
   ],
   bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent],
 })
 export class AppModule {}
