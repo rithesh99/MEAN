@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorComponent } from './error/error.component';
 import { ErrorService } from './error/error.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root'})
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(private dialog: MatDialog, private errorService: ErrorService) {}
 
